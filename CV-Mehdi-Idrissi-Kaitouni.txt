@@ -1,0 +1,25 @@
+CV - Mehdi Idrissi Kaitouni
+
+Nom complet: Mehdi Idrissi Kaitouni
+Email: mehdi.idrissi.kaitouni83@gmail.com
+Telephone: +212 6 56 00 19 96
+Localisation: Fes, Maroc
+Role: Developpeur Full Stack
+
+Profil
+Developpeur passionne par la creation de solutions web modernes, performantes et responsives.
+
+Competences
+- HTML5 / CSS3
+- JavaScript
+- React.js
+- Node.js
+- Git / GitHub
+
+Liens
+GitHub: https://github.com/meidrissikaitouni-sys
+Portfolio: https://meidrissikaitouni-sys.github.io/Mehdi-ss-portfolio/
+
+Note
+Remplacez ce fichier .txt par votre vrai CV en PDF quand il est pret.
+Nom conseille: CV-Mehdi-Idrissi-Kaitouni.pdf
