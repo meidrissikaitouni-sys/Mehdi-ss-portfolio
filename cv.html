@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Interactif | Mehdi Idrissi Kaitouni</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg: #0b0d14;
+            --card: #131728;
+            --text: #f1f3ff;
+            --muted: #9aa4c4;
+            --accent: #6c72ff;
+            --line: #2a3150;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--text);
+            background: radial-gradient(circle at 20% 20%, #20284a, var(--bg));
+            min-height: 100vh;
+        }
+
+        .wrap {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 24px;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .title {
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        .back-link {
+            color: var(--text);
+            text-decoration: none;
+            border: 1px solid var(--line);
+            padding: 10px 14px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .panel {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 18px;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 20px;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            border: 1px solid var(--line);
+            background: #0d1120;
+            color: var(--text);
+            border-radius: 10px;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .photo-preview {
+            width: 100%;
+            max-height: 320px;
+            object-fit: contain;
+            border: 1px dashed var(--line);
+            border-radius: 12px;
+            background: #0d1120;
+        }
+
+        .cv-preview {
+            background: #0d1120;
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .cv-name {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .cv-role {
+            margin: 6px 0 12px;
+            color: var(--muted);
+        }
+
+        .cv-section {
+            margin-top: 14px;
+        }
+
+        .cv-section h3 {
+            margin: 0 0 8px;
+            color: var(--accent);
+            font-size: 15px;
+        }
+
+        .cv-section p {
+            margin: 0;
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+
+        @media (max-width: 900px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="topbar">
+            <h1 class="title">Page CV Interactive</h1>
+            <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
+        </div>
+
+        <div class="layout">
+            <section class="panel">
+                <h2>Remplir le CV</h2>
+
+                <div class="field">
+                    <label for="photoInput">Image du CV (ou photo profil)</label>
+                    <input id="photoInput" type="file" accept="image/*">
+                </div>
+
+                <div class="field">
+                    <label for="nameInput">Nom complet</label>
+                    <input id="nameInput" type="text" value="Mehdi Idrissi Kaitouni">
+                </div>
+
+                <div class="field">
+                    <label for="roleInput">Poste</label>
+                    <input id="roleInput" type="text" value="Developpeur Full Stack">
+                </div>
+
+                <div class="field">
+                    <label for="aboutInput">Profil</label>
+                    <textarea id="aboutInput">Developpeur passionne par la creation de solutions web modernes, performantes et responsives.</textarea>
+                </div>
+
+                <div class="field">
+                    <label for="skillsInput">Competences</label>
+                    <textarea id="skillsInput">HTML5 / CSS3
+JavaScript
+React.js
+Node.js
+Git / GitHub</textarea>
+                </div>
+
+                <div class="field">
+                    <label for="expInput">Experience</label>
+                    <textarea id="expInput">3+ ans d'experience dans le developpement web et la creation d'interfaces modernes.</textarea>
+                </div>
+            </section>
+
+            <section class="panel">
+                <h2>Apercu du CV</h2>
+                <img id="photoPreview" class="photo-preview" alt="Apercu image CV">
+
+                <div class="cv-preview">
+                    <h3 id="cvName" class="cv-name"></h3>
+                    <p id="cvRole" class="cv-role"></p>
+
+                    <div class="cv-section">
+                        <h3>Profil</h3>
+                        <p id="cvAbout"></p>
+                    </div>
+
+                    <div class="cv-section">
+                        <h3>Competences</h3>
+                        <p id="cvSkills"></p>
+                    </div>
+
+                    <div class="cv-section">
+                        <h3>Experience</h3>
+                        <p id="cvExp"></p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        const photoInput = document.getElementById('photoInput');
+        const photoPreview = document.getElementById('photoPreview');
+
+        const fields = {
+            nameInput: document.getElementById('cvName'),
+            roleInput: document.getElementById('cvRole'),
+            aboutInput: document.getElementById('cvAbout'),
+            skillsInput: document.getElementById('cvSkills'),
+            expInput: document.getElementById('cvExp')
+        };
+
+        function syncField(inputId) {
+            const input = document.getElementById(inputId);
+            fields[inputId].textContent = input.value.trim();
+        }
+
+        Object.keys(fields).forEach((inputId) => {
+            syncField(inputId);
+            document.getElementById(inputId).addEventListener('input', () => syncField(inputId));
+        });
+
+        photoInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+            if (!file) {
+                photoPreview.removeAttribute('src');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                photoPreview.src = e.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    </script>
+</body>
+</html>
