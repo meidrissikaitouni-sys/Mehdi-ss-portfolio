@@ -1,5 +1,9 @@
 {
   "name": "mehdi-portfolio",
   "version": "1.0.0",
-  "description": "Portfolio développeur"
+  "description": "Portfolio développeur",
+  "scripts": {
+    "build": "echo Static site - no build step",
+    "dev": "echo Open index.html in your browser"
+  }
 }
