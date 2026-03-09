@@ -175,30 +175,48 @@ document.addEventListener('DOMContentLoaded', function() {
     // ===== CONTACT FORM =====
     const contactForm = document.getElementById('contactForm');
     
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
         e.preventDefault();
         
-        // Get form data
         const formData = new FormData(contactForm);
-        const formValues = Object.fromEntries(formData);
-        
-        // In a real application, you would send this data to a server
-        // For demo purposes, we'll just show an alert
-        alert(`Merci pour votre message, ${formValues.name || 'cher visiteur'}! Je vous répondrai dans les plus brefs délais.`);
-        
-        // Reset form
-        contactForm.reset();
-        
-        // Add confirmation effect
         const submitBtn = contactForm.querySelector('button[type="submit"]');
         const originalText = submitBtn.innerHTML;
-        submitBtn.innerHTML = '<i class="fas fa-check"></i> Message envoyé!';
-        submitBtn.style.backgroundColor = '#4CAF50';
         
-        setTimeout(() => {
-            submitBtn.innerHTML = originalText;
-            submitBtn.style.backgroundColor = '';
-        }, 3000);
+        try {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi...';
+
+            const response = await fetch('https://formsubmit.co/ajax/mehdi.idrissi.kaitouni83@gmail.com', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    Accept: 'application/json'
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Echec envoi formulaire');
+            }
+
+            submitBtn.innerHTML = '<i class="fas fa-check"></i> Message envoyé!';
+            submitBtn.style.backgroundColor = '#4CAF50';
+            contactForm.reset();
+
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.style.backgroundColor = '';
+                submitBtn.disabled = false;
+            }, 3000);
+        } catch (error) {
+            submitBtn.innerHTML = '<i class="fas fa-triangle-exclamation"></i> Erreur, réessayez';
+            submitBtn.style.backgroundColor = '#E74C3C';
+
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.style.backgroundColor = '';
+                submitBtn.disabled = false;
+            }, 3000);
+        }
     });
     
     // ===== FLOATING ELEMENTS ANIMATION =====

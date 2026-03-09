@@ -446,18 +446,21 @@
                 </div>
                 
                 <div class="contact-form">
-                    <form id="contactForm">
+                    <form id="contactForm" action="https://formsubmit.co/mehdi.idrissi.kaitouni83@gmail.com" method="POST">
+                        <input type="hidden" name="_subject" value="Nouveau message depuis le portfolio">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_template" value="table">
                         <div class="form-group">
-                            <input type="text" placeholder="Votre nom" required>
+                            <input type="text" name="name" placeholder="Votre nom" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" placeholder="Votre email" required>
+                            <input type="email" name="email" placeholder="Votre email" required>
                         </div>
                         <div class="form-group">
-                            <input type="text" placeholder="Sujet" required>
+                            <input type="text" name="subject" placeholder="Sujet" required>
                         </div>
                         <div class="form-group">
-                            <textarea placeholder="Votre message" rows="5" required></textarea>
+                            <textarea name="message" placeholder="Votre message" rows="5" required></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">
                             <i class="fas fa-paper-plane"></i> Envoyer le message
@@ -480,7 +483,7 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2023 DevPortfolio. Tous droits réservés.</p>
+                <p>&copy; 2026 DevPortfolio. Tous droits réservés.</p>
             </div>
         </div>
     </footer>
