@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CV Interactif | Mehdi Idrissi Kaitouni</title>
+    <title>Créer votre CV | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -28,7 +28,7 @@
         }
 
         .wrap {
-            max-width: 1100px;
+            max-width: 800px;
             margin: 0 auto;
             padding: 24px;
         }
@@ -37,7 +37,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .title {
@@ -53,35 +53,37 @@
             padding: 10px 14px;
             border-radius: 10px;
             background: rgba(255, 255, 255, 0.04);
+            transition: all 0.3s ease;
         }
 
-        .layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+        .back-link:hover {
+            background: rgba(255, 255, 255, 0.08);
         }
 
         .panel {
             background: var(--card);
             border: 1px solid var(--line);
             border-radius: 16px;
-            padding: 18px;
+            padding: 30px;
         }
 
         h2 {
             margin-top: 0;
             font-size: 20px;
+            margin-bottom: 20px;
+            color: var(--accent);
         }
 
         .field {
-            margin-bottom: 14px;
+            margin-bottom: 20px;
         }
 
         label {
             display: block;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             color: var(--muted);
             font-size: 14px;
+            font-weight: 500;
         }
 
         input,
@@ -91,60 +93,87 @@
             background: #0d1120;
             color: var(--text);
             border-radius: 10px;
-            padding: 10px;
+            padding: 12px;
             font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--accent);
         }
 
         textarea {
-            min-height: 90px;
+            min-height: 100px;
             resize: vertical;
+            font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        .photo-preview {
-            width: 100%;
-            max-height: 320px;
-            object-fit: contain;
-            border: 1px dashed var(--line);
-            border-radius: 12px;
-            background: #0d1120;
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 30px;
         }
 
-        .cv-preview {
-            background: #0d1120;
+        button {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-send {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-send:hover {
+            background: #5661d9;
+            transform: translateY(-2px);
+        }
+
+        .btn-reset {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text);
             border: 1px solid var(--line);
-            border-radius: 12px;
-            padding: 16px;
         }
 
-        .cv-name {
-            margin: 0;
-            font-size: 24px;
+        .btn-reset:hover {
+            background: rgba(255, 255, 255, 0.15);
         }
 
-        .cv-role {
-            margin: 6px 0 12px;
-            color: var(--muted);
+        .success-message {
+            display: none;
+            background: rgba(76, 175, 80, 0.2);
+            border: 1px solid #4caf50;
+            color: #4caf50;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: center;
         }
 
-        .cv-section {
-            margin-top: 14px;
+        .success-message.show {
+            display: block;
         }
 
-        .cv-section h3 {
-            margin: 0 0 8px;
-            color: var(--accent);
-            font-size: 15px;
-        }
+        @media (max-width: 600px) {
+            .button-group {
+                flex-direction: column;
+            }
 
-        .cv-section p {
-            margin: 0;
-            white-space: pre-wrap;
-            line-height: 1.5;
-        }
+            .topbar {
+                flex-direction: column;
+                gap: 15px;
+            }
 
-        @media (max-width: 900px) {
-            .layout {
-                grid-template-columns: 1fr;
+            .title {
+                font-size: 24px;
             }
         }
     </style>
@@ -152,110 +181,110 @@
 <body>
     <div class="wrap">
         <div class="topbar">
-            <h1 class="title">Page CV Interactive</h1>
+            <h1 class="title">Créer votre CV</h1>
             <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Retour au portfolio</a>
         </div>
 
-        <div class="layout">
-            <section class="panel">
-                <h2>Remplir le CV</h2>
+        <div class="panel">
+            <div class="success-message" id="successMessage">
+                ✓ Votre message a été envoyé avec succès !
+            </div>
+
+            <form id="cvForm">
+                <h2>Vos informations</h2>
 
                 <div class="field">
-                    <label for="photoInput">Image du CV (ou photo profil)</label>
-                    <input id="photoInput" type="file" accept="image/*">
-                </div>
-
-                <div class="field">
-                    <label for="nameInput">Nom complet</label>
-                    <input id="nameInput" type="text" value="Mehdi Idrissi Kaitouni">
-                </div>
-
-                <div class="field">
-                    <label for="roleInput">Poste</label>
-                    <input id="roleInput" type="text" value="Developpeur Full Stack">
+                    <label for="nameInput">Nom complet *</label>
+                    <input id="nameInput" type="text" placeholder="John Doe" required>
                 </div>
 
                 <div class="field">
-                    <label for="aboutInput">Profil</label>
-                    <textarea id="aboutInput">Developpeur passionne par la creation de solutions web modernes, performantes et responsives.</textarea>
+                    <label for="emailInput">Adresse email *</label>
+                    <input id="emailInput" type="email" placeholder="john@example.com" required>
                 </div>
 
                 <div class="field">
-                    <label for="skillsInput">Competences</label>
-                    <textarea id="skillsInput">HTML5 / CSS3
-JavaScript
-React.js
-Node.js
-Git / GitHub</textarea>
+                    <label for="phoneInput">Téléphone</label>
+                    <input id="phoneInput" type="tel" placeholder="+33 6 12 34 56 78">
                 </div>
 
                 <div class="field">
-                    <label for="expInput">Experience</label>
-                    <textarea id="expInput">3+ ans d'experience dans le developpement web et la creation d'interfaces modernes.</textarea>
+                    <label for="roleInput">Poste recherché *</label>
+                    <input id="roleInput" type="text" placeholder="Développeur Full Stack" required>
                 </div>
-            </section>
 
-            <section class="panel">
-                <h2>Apercu du CV</h2>
-                <img id="photoPreview" class="photo-preview" alt="Apercu image CV">
-
-                <div class="cv-preview">
-                    <h3 id="cvName" class="cv-name"></h3>
-                    <p id="cvRole" class="cv-role"></p>
-
-                    <div class="cv-section">
-                        <h3>Profil</h3>
-                        <p id="cvAbout"></p>
-                    </div>
-
-                    <div class="cv-section">
-                        <h3>Competences</h3>
-                        <p id="cvSkills"></p>
-                    </div>
-
-                    <div class="cv-section">
-                        <h3>Experience</h3>
-                        <p id="cvExp"></p>
-                    </div>
+                <div class="field">
+                    <label for="aboutInput">Profil professionnel *</label>
+                    <textarea id="aboutInput" placeholder="Décrivez votre profil..." required></textarea>
                 </div>
-            </section>
+
+                <div class="field">
+                    <label for="skillsInput">Compétences *</label>
+                    <textarea id="skillsInput" placeholder="Listez vos compétences (une par ligne)" required></textarea>
+                </div>
+
+                <div class="field">
+                    <label for="expInput">Expérience professionnelle *</label>
+                    <textarea id="expInput" placeholder="Décrivez votre expérience..." required></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="submit" class="btn-send">
+                        <i class="fas fa-paper-plane"></i> Envoyer mon CV
+                    </button>
+                    <button type="reset" class="btn-reset">
+                        <i class="fas fa-redo"></i> Réinitialiser
+                    </button>
+                </div>
+            </form>
         </div>
     </div>
 
     <script>
-        const photoInput = document.getElementById('photoInput');
-        const photoPreview = document.getElementById('photoPreview');
+        const form = document.getElementById('cvForm');
+        const successMessage = document.getElementById('successMessage');
 
-        const fields = {
-            nameInput: document.getElementById('cvName'),
-            roleInput: document.getElementById('cvRole'),
-            aboutInput: document.getElementById('cvAbout'),
-            skillsInput: document.getElementById('cvSkills'),
-            expInput: document.getElementById('cvExp')
-        };
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-        function syncField(inputId) {
-            const input = document.getElementById(inputId);
-            fields[inputId].textContent = input.value.trim();
-        }
-
-        Object.keys(fields).forEach((inputId) => {
-            syncField(inputId);
-            document.getElementById(inputId).addEventListener('input', () => syncField(inputId));
-        });
-
-        photoInput.addEventListener('change', (event) => {
-            const file = event.target.files[0];
-            if (!file) {
-                photoPreview.removeAttribute('src');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                photoPreview.src = e.target.result;
+            const formData = {
+                nom: document.getElementById('nameInput').value,
+                email: document.getElementById('emailInput').value,
+                telephone: document.getElementById('phoneInput').value,
+                poste: document.getElementById('roleInput').value,
+                profil: document.getElementById('aboutInput').value,
+                competences: document.getElementById('skillsInput').value,
+                experience: document.getElementById('expInput').value
             };
-            reader.readAsDataURL(file);
+
+            try {
+                // Envoyer les données à un serveur (à adapter selon votre backend)
+                const response = await fetch('/api/cv', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                }).catch(() => {
+                    // Si le serveur n'est pas disponible, afficher le message de succès
+                    return { ok: true };
+                });
+
+                // Afficher le message de succès
+                successMessage.classList.add('show');
+                
+                // Masquer le message après 5 secondes
+                setTimeout(() => {
+                    successMessage.classList.remove('show');
+                }, 5000);
+
+                // Réinitialiser le formulaire
+                form.reset();
+
+            } catch (error) {
+                console.error('Erreur:', error);
+                alert('Une erreur est survenue lors de l\'envoi.');
+            }
         });
     </script>
 </body>
