@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Créer votre CV | Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <style>
         :root {
             --bg: #0b0d14;
@@ -128,8 +129,21 @@
         }
 
         .btn-send {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
             background: var(--accent);
             color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
         }
 
         .btn-send:hover {
@@ -137,14 +151,23 @@
             transform: translateY(-2px);
         }
 
-        .btn-reset {
-            background: rgba(255, 255, 255, 0.1);
-            color: var(--text);
-            border: 1px solid var(--line);
+        .btn-download {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(108, 114, 255, 0.2);
+            color: var(--accent);
+            border: 1px solid var(--accent);
         }
 
-        .btn-reset:hover {
-            background: rgba(255, 255, 255, 0.15);
+        .btn-download:hover {
+            background: rgba(108, 114, 255, 0.3);
+            transform: translateY(-2px);
         }
 
         .success-message {
@@ -229,11 +252,11 @@
                 </div>
 
                 <div class="button-group">
-                    <button type="submit" class="btn-send">
-                        <i class="fas fa-paper-plane"></i> Envoyer mon CV
-                    </button>
-                    <button type="reset" class="btn-reset">
-                        <i class="fas fa-redo"></i> Réinitialiser
+                    <a href="#contact" class="btn-send" id="contactLink">
+                        <i class="fas fa-envelope"></i> Page de contact
+                    </a>
+                    <button type="button" class="btn-download" id="downloadBtn">
+                        <i class="fas fa-download"></i> Télécharger mon CV
                     </button>
                 </div>
             </form>
@@ -241,8 +264,63 @@
     </div>
 
     <script>
+        // Informations de Mehdi
+        const mehdiInfo = {
+            nom: "Mehdi Idrissi Kaitouni",
+            email: "mehdi.idrissi.kaitouni83@gmail.com",
+            telephone: "+212 6 56 00 19 96",
+            localisation: "Fès, Maroc",
+            profil: "Développeur passionné par la création de solutions web modernes, performantes et responsives. Avec plus de 3 ans d'expérience dans le développement web, je me spécialise dans la création d'applications modernes, réactives et performantes.",
+            competences: "HTML5/CSS3, JavaScript, React.js, Vue.js, Node.js, Python, Django, PHP, Laravel, Git, UI/UX Design, DevOps, React Native",
+            experience: "3+ ans d'experience dans le developpement web et la creation d'interfaces modernes.\n\nExpériences:\n- Plateforme E-commerce (React, Node.js, MongoDB)\n- Dashboard analytique\n- Applications web responsives"
+        };
+
         const form = document.getElementById('cvForm');
         const successMessage = document.getElementById('successMessage');
+        const downloadBtn = document.getElementById('downloadBtn');
+        const contactLink = document.getElementById('contactLink');
+
+        // Lien vers la page de contact
+        contactLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            document.location.href = "index.html#contact";
+        });
+
+        // Télécharger le CV en PDF
+        downloadBtn.addEventListener('click', () => {
+            const element = document.createElement('div');
+            element.innerHTML = `
+                <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 800px;">
+                    <h1 style="color: #6c72ff; margin-bottom: 5px;">${mehdiInfo.nom}</h1>
+                    <p style="color: #9aa4c4; margin: 0 0 20px 0;">Développeur Full Stack</p>
+                    
+                    <div style="border-bottom: 2px solid #6c72ff; padding-bottom: 15px; margin-bottom: 20px;">
+                        <p style="margin: 5px 0;"><strong>📧 Email:</strong> ${mehdiInfo.email}</p>
+                        <p style="margin: 5px 0;"><strong>📱 Téléphone:</strong> ${mehdiInfo.telephone}</p>
+                        <p style="margin: 5px 0;"><strong>📍 Localisation:</strong> ${mehdiInfo.localisation}</p>
+                    </div>
+                    
+                    <h2 style="color: #6c72ff; font-size: 18px; margin-bottom: 10px;">Profil professionnel</h2>
+                    <p style="line-height: 1.6; margin-bottom: 20px;">${mehdiInfo.profil}</p>
+                    
+                    <h2 style="color: #6c72ff; font-size: 18px; margin-bottom: 10px;">Compétences</h2>
+                    <p style="line-height: 1.6; margin-bottom: 20px;">${mehdiInfo.competences}</p>
+                    
+                    <h2 style="color: #6c72ff; font-size: 18px; margin-bottom: 10px;">Expérience</h2>
+                    <p style="line-height: 1.6; white-space: pre-wrap;">${mehdiInfo.experience}</p>
+                </div>
+            `;
+
+            const options = {
+                margin: 10,
+                filename: 'CV_Mehdi_Idrissi_Kaitouni.pdf',
+                image: { type: 'jpeg', quality: 0.98 },
+                html2canvas: { scale: 2 },
+                jsPDF: { orientation: 'portrait', unit: 'mm', format: 'a4' }
+            };
+
+            html2pdf().set(options).from(element).save();
+        });
 
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
